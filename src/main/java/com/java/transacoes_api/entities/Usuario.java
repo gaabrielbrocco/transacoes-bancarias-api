@@ -18,7 +18,7 @@ public class Usuario {
     private String email;
 
 
-    public Usuario(Long id, String nome, String email) {
+    public Usuario(String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
