@@ -30,4 +30,67 @@ public class Movimentacao {
     @ManyToOne
     @JoinColumn(name = "conta_id", nullable = false)
     private Conta conta;
+
+    public Movimentacao(Long id, BigDecimal valor, LocalDateTime data, String descricao, TipoMovimentacao tipo, Conta conta) {
+        this.id = id;
+        this.valor = valor;
+        this.data = data;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.conta = conta;
+    }
+
+    public Movimentacao(String contaOrigem, String contaDestino, BigDecimal valor) {
+    }
+
+    public Movimentacao() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public void setData(LocalDateTime data) {
+        this.data = data;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public TipoMovimentacao getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoMovimentacao tipo) {
+        this.tipo = tipo;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
+    }
 }

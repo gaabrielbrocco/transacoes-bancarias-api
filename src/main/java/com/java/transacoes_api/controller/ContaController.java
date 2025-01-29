@@ -28,4 +28,14 @@ public class ContaController {
         var contas = contaService.buscarContas();
         return ResponseEntity.ok(contas);
     }
+
+    @DeleteMapping("/{contaId}")
+    public ResponseEntity<Void> deletarConta(@PathVariable String contaId) throws Exception {
+        try {
+            contaService.deletarConta(contaId);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 }

@@ -37,4 +37,16 @@ public class ContaService {
     public List<Conta> buscarContas() {
         return contaRepository.findAll();
     }
+
+    public void deletarConta(String contaId) throws Exception {
+        var id = Long.parseLong(contaId);
+
+        var contaExistente = contaRepository.findById(id);
+
+        if (!contaExistente.isPresent()) {
+            throw new Exception("Conta não encontrada");
+        }
+
+        contaRepository.deleteById(id);
+    }
 }
