@@ -1,5 +1,6 @@
 package com.java.transacoes_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -31,6 +32,14 @@ public class Conta {
 
     public Conta(Long id, String numeroConta, String nome, BigDecimal saldoInicial, LocalDateTime dataCriacao, Usuario usuario) {
         this.id = id;
+        this.numeroConta = numeroConta;
+        this.nome = nome;
+        this.saldoInicial = saldoInicial;
+        this.dataCriacao = dataCriacao;
+        this.usuario = usuario;
+    }
+
+    public Conta(String numeroConta, String nome, BigDecimal saldoInicial, LocalDateTime dataCriacao, Usuario usuario) {
         this.numeroConta = numeroConta;
         this.nome = nome;
         this.saldoInicial = saldoInicial;
