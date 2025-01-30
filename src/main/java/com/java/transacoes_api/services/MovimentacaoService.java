@@ -38,10 +38,6 @@ public class MovimentacaoService {
     @Autowired
     private ContaRepository contaRepository;
 
-    @Value("${RESEND}")
-    private String resendKey;
-
-
     @Transactional
     public Movimentacao transferencia(MovimentacaoInputDTO dto) throws Exception {
         var contaOrigem = contaRepository.findByNumeroConta(dto.contaOrigem())
@@ -118,7 +114,7 @@ public class MovimentacaoService {
         template = template.replace("{{contaDestino}}", contaDestino);
         template = template.replace("{{dataHora}}", dataHora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
-        Resend resend = new Resend(resendKey);
+        Resend resend = new Resend("re_ijCdmN6g_J3FtL77CJ1S3yfBN4SY2ULJG");
 
         CreateEmailOptions params = CreateEmailOptions.builder()
                 .from("Banco <contato@travelerbrasil.com>")

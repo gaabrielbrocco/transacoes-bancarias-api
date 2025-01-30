@@ -13,7 +13,7 @@ CREATE TABLE Conta (
                        conta_id SERIAL PRIMARY KEY,
                        numero_conta VARCHAR(50) NOT NULL UNIQUE,
                        nome VARCHAR(255) NOT NULL,
-                       saldo_inicial DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
+                       saldo DECIMAL(15, 2) NOT NULL DEFAULT 0.00,
                        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        usuario_id INT NOT NULL,
                        FOREIGN KEY (usuario_id) REFERENCES Usuario(usuario_id)
