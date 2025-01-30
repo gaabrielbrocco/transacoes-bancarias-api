@@ -13,6 +13,7 @@ import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -36,6 +37,9 @@ public class MovimentacaoService {
 
     @Autowired
     private ContaRepository contaRepository;
+
+    @Value("${RESEND}")
+    private String resendKey;
 
 
     @Transactional
@@ -114,7 +118,7 @@ public class MovimentacaoService {
         template = template.replace("{{contaDestino}}", contaDestino);
         template = template.replace("{{dataHora}}", dataHora.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
-        Resend resend = new Resend("re_ijCdmN6g_J3FtL77CJ1S3yfBN4SY2ULJG");
+        Resend resend = new Resend(resendKey);
 
         CreateEmailOptions params = CreateEmailOptions.builder()
                 .from("Banco <contato@travelerbrasil.com>")
