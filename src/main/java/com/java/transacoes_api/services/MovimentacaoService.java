@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class MovimentacaoService {
@@ -49,12 +50,12 @@ public class MovimentacaoService {
             throw new Exception("O valor da transferência deve ser maior que zero");
         }
 
-        if (contaOrigem.getSaldoInicial().compareTo(dto.valor()) < 0) {
+        if (contaOrigem.getSaldo().compareTo(dto.valor()) < 0) {
             throw new Exception("Saldo insuficiente para a transferência");
         }
 
-        contaOrigem.setSaldoInicial(contaOrigem.getSaldoInicial().subtract(dto.valor()));
-        contaDestino.setSaldoInicial(contaDestino.getSaldoInicial().add(dto.valor()));
+        contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(dto.valor()));
+        contaDestino.setSaldo(contaDestino.getSaldo().add(dto.valor()));
 
         contaRepository.save(contaOrigem);
         contaRepository.save(contaDestino);
@@ -86,6 +87,10 @@ public class MovimentacaoService {
 
 
         return movimentacaoDebito;
+    }
+
+    public List<Movimentacao> buscarTodasMovimentacoes() {
+        return movimentacaoRepository.findAll();
     }
 
 

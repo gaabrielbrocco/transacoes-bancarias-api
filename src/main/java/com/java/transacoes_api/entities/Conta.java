@@ -20,8 +20,8 @@ public class Conta {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "saldo_inicial", nullable = false)
-    private BigDecimal saldoInicial = BigDecimal.ZERO;
+    @Column(name = "saldo", nullable = false)
+    private BigDecimal saldo = BigDecimal.ZERO;
 
     @Column(name = "data_criacao", nullable = false, updatable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now();
@@ -30,19 +30,19 @@ public class Conta {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    public Conta(Long id, String numeroConta, String nome, BigDecimal saldoInicial, LocalDateTime dataCriacao, Usuario usuario) {
+    public Conta(Long id, String numeroConta, String nome, BigDecimal saldo, LocalDateTime dataCriacao, Usuario usuario) {
         this.id = id;
         this.numeroConta = numeroConta;
         this.nome = nome;
-        this.saldoInicial = saldoInicial;
+        this.saldo = saldo;
         this.dataCriacao = dataCriacao;
         this.usuario = usuario;
     }
 
-    public Conta(String numeroConta, String nome, BigDecimal saldoInicial, LocalDateTime dataCriacao, Usuario usuario) {
+    public Conta(String numeroConta, String nome, BigDecimal saldo, LocalDateTime dataCriacao, Usuario usuario) {
         this.numeroConta = numeroConta;
         this.nome = nome;
-        this.saldoInicial = saldoInicial;
+        this.saldo = saldo;
         this.dataCriacao = dataCriacao;
         this.usuario = usuario;
     }
@@ -74,12 +74,12 @@ public class Conta {
         this.nome = nome;
     }
 
-    public BigDecimal getSaldoInicial() {
-        return saldoInicial;
+    public BigDecimal getSaldo() {
+        return saldo;
     }
 
-    public void setSaldoInicial(BigDecimal saldoInicial) {
-        this.saldoInicial = saldoInicial;
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
     }
 
     public LocalDateTime getDataCriacao() {

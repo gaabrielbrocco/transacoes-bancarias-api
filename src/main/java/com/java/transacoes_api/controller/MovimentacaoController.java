@@ -9,9 +9,12 @@ import com.java.transacoes_api.services.MovimentacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class MovimentacaoController {
@@ -26,6 +29,12 @@ public class MovimentacaoController {
     public ResponseEntity<Movimentacao> transferencia(@RequestBody MovimentacaoInputDTO dto) throws Exception {
         Movimentacao movimentacao = movimentacaoService.transferencia(dto);
         return new ResponseEntity<>(movimentacao, HttpStatus.OK);
+    }
+
+    @GetMapping("/movimentacoes")
+    public ResponseEntity<List<Movimentacao>> buscarTodasMovimentacoes() {
+        var movimentacoes = movimentacaoService.buscarTodasMovimentacoes();
+        return ResponseEntity.ok(movimentacoes);
     }
 
 

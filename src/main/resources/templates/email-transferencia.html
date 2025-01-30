@@ -2,148 +2,165 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Comprovante de Transferência</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-            min-height: auto;
+            background-color: #363636;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
             box-sizing: border-box;
+            text-align: center;
         }
 
         .header {
-            text-align: center;
-            font-size: 30px;
+            font-size: 24px;
             font-weight: bold;
-            color: #333;
+            color: #fff;
             margin-bottom: 20px;
-        }
-        .valor {
-            font-size: 26px;
-            font-weight: bold;
-            margin: 20px 0;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section strong {
-            font-weight: normal;
-            color: #333;
-            display: block;
-            margin-bottom: 8px;
-        }
-        .section .value {
-            font-size: 16px;
-            color: #888;
-            margin-top: 15px;
-        }
-        .divider {
-            border-top: 1px solid #f0f0f0;
-            margin-top: 8px;
-        }
-        .footer {
-            text-align: center;
-            font-size: 14px;
-            color: #888;
-            margin-top: 50px;
-        }
-        .titulo {
-            margin-top: 40px;
-            font-size: 20px;
-            font-weight: normal;
-        }
-        .larger-section {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .section-value {
-            font-size: 12px;
-        }
-        .bloco1, .bloco2 {
-            margin-top: 15px;
         }
 
-        .section-strong {
+        .valor {
+            font-size: 28px;
             font-weight: bold;
+            color: #fff;
+            padding: 15px 20px;
+            display: inline-block;
+        }
+
+        .valor-pagamento {
+            font-size: 18px;
+            color: #fff;
+            display: inline-block;
+            margin-top: 40px;
+            color: #A9A9A9;
+        }
+
+        .section {
+            color: #A9A9A9;
+            margin-top: 20px;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            border-bottom: 2px solid #FFF;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .details-table td {
+            padding: 8px 0;
+            font-size: 16px;
+        }
+
+        .label {
+            text-align: left;
+            color: #A9A9A9;
+        }
+
+        .value {
+            text-align: right;
+            color: #A9A9A9;
+        }
+
+        .footer {
+            font-size: 11px;
+            color: #888;
+            padding-top: 40px;
+            text-align: center;
         }
 
         @media (max-width: 600px) {
             .container {
-                padding: 15px;
-            }
-            .header {
-                font-size: 24px;
-            }
-            .valor {
-                font-size: 22px;
+                padding: 20px;
             }
         }
-
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">Comprovante de Transferência</div>
-
-    <div class="valor">R$ {{valor}}</div>
-
-    <div class="section larger-section">
-        <strong class="titulo section-strong">Conta Origem</strong>
-        <div class="divider"></div>
-        <div class="bloco1">
-            <div class="value"><strong>Número da conta:</strong></div>
-            <div class="value">{{contaOrigem}}</div>
-        </div>
-        <div class="bloco2">
-            <div class="value"><strong>Remetente:</strong></div>
-            <div class="value">{{nomeRemetente}}</div>
-        </div>
-    </div>
-
-    <div class="section larger-section">
-        <strong class="titulo section-strong">Conta Destino</strong>
-        <div class="divider"></div>
-        <div class="bloco1">
-            <div class="value"><strong>Número da conta:</strong></div>
-            <div class="value">{{contaDestino}}</div>
-        </div>
-        <div class="bloco2">
-            <div class="value"><strong>Destinatário:</strong></div>
-            <div class="value">{{nomeDestinatario}}</div>
-        </div>
-    </div>
-
-    <div class="section">
-        <strong class="titulo section-strong">Data e Hora</strong>
-        <div class="divider"></div>
-        <div class="value">{{dataHora}}</div>
-    </div>
-
-    <div class="footer">Comprovante gerado automaticamente. Não é necessário respondê-lo.</div>
-</div>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td align="center">
+            <table class="container" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                    <td class="header">Comprovante de Transferência</td>
+                </tr>
+                <tr>
+                    <td class="valor-pagamento">Valor do pagamento</td>
+                </tr>
+                <tr>
+                    <td class="valor">R$ {{valor}}</td>
+                </tr>
+                <tr>
+                    <td class="section">
+                        <div class="title">Conta Origem</div>
+                        <table class="details-table">
+                            <tr>
+                                <td class="label">Número da conta:</td>
+                                <td class="value">{{contaOrigem}}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Remetente:</td>
+                                <td class="value">{{nomeRemetente}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="section">
+                        <div class="title">Conta Destino</div>
+                        <table class="details-table">
+                            <tr>
+                                <td class="label">Número da conta:</td>
+                                <td class="value">{{contaDestino}}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Destinatário:</td>
+                                <td class="value">{{nomeDestinatario}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="section">
+                        <div class="title">Data e Hora</div>
+                        <table class="details-table">
+                            <tr>
+                                <td class="label">Data:</td>
+                                <td class="value">{{dataHora}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="footer">
+                        Comprovante gerado automaticamente. Não é necessário respondê-lo.
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

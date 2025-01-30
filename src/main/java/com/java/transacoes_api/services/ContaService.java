@@ -26,7 +26,7 @@ public class ContaService {
         var conta = new Conta(
                 dto.numeroConta(),
                 dto.nome(),
-                dto.saldoInicial(),
+                dto.saldo(),
                 LocalDateTime.now(),
                 usuarioExistente
         );
