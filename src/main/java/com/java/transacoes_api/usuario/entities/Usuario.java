@@ -1,6 +1,7 @@
 package com.java.transacoes_api.usuario.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "usuario")
@@ -15,6 +16,7 @@ public class Usuario {
     private String nome;
 
     @Column(name = "email", nullable = false, unique = true)
+    @Email(message = "O e-mail deve ser válido")
     private String email;
 
 

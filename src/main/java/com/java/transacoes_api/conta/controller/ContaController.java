@@ -38,14 +38,10 @@ public class ContaController {
     }
 
     @DeleteMapping("/{contaId}")
-    public ResponseEntity<Void> deletarConta(@PathVariable String contaId) {
-        try {
+    public ResponseEntity<Void> deletarConta(@PathVariable String contaId) throws Exception {
+
             contaService.deletarConta(contaId);
             return ResponseEntity.noContent().build();
-        } catch (ContaNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+
     }
 }

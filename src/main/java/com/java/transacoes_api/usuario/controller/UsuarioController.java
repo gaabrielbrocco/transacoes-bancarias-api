@@ -1,8 +1,10 @@
 package com.java.transacoes_api.usuario.controller;
 
+import com.java.transacoes_api.conta.exceptions.UsuarioNaoEncontradoException;
 import com.java.transacoes_api.usuario.controller.dtos.UsuarioInputDTO;
 import com.java.transacoes_api.usuario.entities.Usuario;
 import com.java.transacoes_api.usuario.services.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,20 +20,16 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario> criarUsuario(@RequestBody UsuarioInputDTO dto) {
+    public ResponseEntity<Usuario> criarUsuario(@RequestBody @Valid UsuarioInputDTO dto) {
         var usuario = usuarioService.criarUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
     @DeleteMapping("/{usuarioId}")
-    public ResponseEntity<Void> deletarUsuario(@PathVariable("usuarioId") String usuarioId) throws Exception {
-        try {
+    public ResponseEntity<Void> deletarUsuario(@PathVariable("usuarioId") String usuarioId){
 
         usuarioService.deletarUsuario(usuarioId);
         return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
     }
 
     @GetMapping
