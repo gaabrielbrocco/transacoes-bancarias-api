@@ -64,14 +64,14 @@ public class MovimentacaoService {
         movimentacaoDebito.setValor(dto.valor().negate());
         movimentacaoDebito.setDescricao("Transferência enviada para " + dto.contaDestino());
         movimentacaoDebito.setConta(contaOrigem);
-        movimentacaoDebito.setData(LocalDateTime.now());
+        movimentacaoDebito.setData(LocalDateTime.now().minusHours(3));
         movimentacaoDebito.setTipo(new TipoMovimentacao(1L, "Débito"));
 
         Movimentacao movimentacaoCredito = new Movimentacao();
         movimentacaoCredito.setValor(dto.valor());
         movimentacaoCredito.setDescricao("Transferência recebida de " + dto.contaOrigem());
         movimentacaoCredito.setConta(contaDestino);
-        movimentacaoCredito.setData(LocalDateTime.now());
+        movimentacaoCredito.setData(LocalDateTime.now().minusHours(3));
         movimentacaoCredito.setTipo(new TipoMovimentacao(2L, "Crédito"));
 
         movimentacaoRepository.save(movimentacaoDebito);
