@@ -1,8 +1,7 @@
-package com.java.transacoes_api.repository;
+package com.java.transacoes_api.conta.repository;
 
-import com.java.transacoes_api.entities.Conta;
+import com.java.transacoes_api.conta.entities.Conta;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.java.transacoes_api.entities;
+package com.java.transacoes_api.movimentacao.entities;
 
 import jakarta.persistence.*;
 

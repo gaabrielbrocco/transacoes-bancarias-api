@@ -1,9 +1,11 @@
-package com.java.transacoes_api.services;
+package com.java.transacoes_api.conta.services;
 
-import com.java.transacoes_api.controller.dtos.ContaInputDTO;
-import com.java.transacoes_api.entities.Conta;
-import com.java.transacoes_api.repository.ContaRepository;
-import com.java.transacoes_api.repository.UsuarioRepository;
+import com.java.transacoes_api.conta.controller.dtos.ContaInputDTO;
+import com.java.transacoes_api.conta.entities.Conta;
+import com.java.transacoes_api.conta.exceptions.ContaNaoEncontradaException;
+import com.java.transacoes_api.conta.exceptions.UsuarioNaoEncontradoException;
+import com.java.transacoes_api.conta.repository.ContaRepository;
+import com.java.transacoes_api.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class ContaService {
 
     public Conta criarConta(ContaInputDTO dto)  throws Exception {
         var usuarioExistente = usuarioRepository.findById(dto.usuarioId())
-                .orElseThrow(() -> new Exception("Usuário não encontrado"));
+                .orElseThrow(UsuarioNaoEncontradoException::new);
 
         var conta = new Conta(
                 dto.numeroConta(),
@@ -41,11 +43,8 @@ public class ContaService {
     public void deletarConta(String contaId) throws Exception {
         var id = Long.parseLong(contaId);
 
-        var contaExistente = contaRepository.findById(id);
-
-        if (!contaExistente.isPresent()) {
-            throw new Exception("Conta não encontrada");
-        }
+        var contaExistente = contaRepository.findById(id)
+                .orElseThrow(ContaNaoEncontradaException::new);
 
         contaRepository.deleteById(id);
     }

@@ -1,11 +1,9 @@
-package com.java.transacoes_api.controller;
+package com.java.transacoes_api.movimentacao.controller;
 
-import com.java.transacoes_api.controller.dtos.MovimentacaoInputDTO;
-import com.java.transacoes_api.entities.Conta;
-import com.java.transacoes_api.entities.Movimentacao;
-import com.java.transacoes_api.entities.Usuario;
-import com.java.transacoes_api.services.ContaService;
-import com.java.transacoes_api.services.MovimentacaoService;
+import com.java.transacoes_api.movimentacao.controller.dtos.MovimentacaoInputDTO;
+import com.java.transacoes_api.movimentacao.entities.Movimentacao;
+import com.java.transacoes_api.conta.services.ContaService;
+import com.java.transacoes_api.movimentacao.services.MovimentacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +34,4 @@ public class MovimentacaoController {
         var movimentacoes = movimentacaoService.buscarTodasMovimentacoes();
         return ResponseEntity.ok(movimentacoes);
     }
-
-
 }

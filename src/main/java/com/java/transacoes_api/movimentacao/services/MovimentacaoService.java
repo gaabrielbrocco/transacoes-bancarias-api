@@ -1,19 +1,17 @@
-package com.java.transacoes_api.services;
+package com.java.transacoes_api.movimentacao.services;
 
-import com.java.transacoes_api.controller.dtos.MovimentacaoInputDTO;
-import com.java.transacoes_api.entities.Conta;
-import com.java.transacoes_api.entities.Movimentacao;
-import com.java.transacoes_api.entities.TipoMovimentacao;
-import com.java.transacoes_api.entities.Usuario;
-import com.java.transacoes_api.repository.ContaRepository;
-import com.java.transacoes_api.repository.MovimentacaoRepository;
-import com.java.transacoes_api.repository.UsuarioRepository;
+import com.java.transacoes_api.conta.exceptions.ContaNaoEncontradaException;
+import com.java.transacoes_api.movimentacao.controller.dtos.MovimentacaoInputDTO;
+import com.java.transacoes_api.movimentacao.entities.Movimentacao;
+import com.java.transacoes_api.movimentacao.entities.TipoMovimentacao;
+import com.java.transacoes_api.conta.repository.ContaRepository;
+import com.java.transacoes_api.movimentacao.repository.MovimentacaoRepository;
+import com.java.transacoes_api.usuario.repository.UsuarioRepository;
 import com.resend.Resend;
 import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,9 +19,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,10 +37,10 @@ public class MovimentacaoService {
     @Transactional
     public Movimentacao transferencia(MovimentacaoInputDTO dto) throws Exception {
         var contaOrigem = contaRepository.findByNumeroConta(dto.contaOrigem())
-                .orElseThrow(() -> new Exception("Conta de origem não encontrada"));
+                .orElseThrow(ContaNaoEncontradaException::new);
 
         var contaDestino = contaRepository.findByNumeroConta(dto.contaDestino())
-                .orElseThrow(() -> new Exception("Conta de destino não encontrada"));
+                .orElseThrow(ContaNaoEncontradaException::new);
 
         if (dto.valor().compareTo(BigDecimal.ZERO) <= 0) {
             throw new Exception("O valor da transferência deve ser maior que zero");

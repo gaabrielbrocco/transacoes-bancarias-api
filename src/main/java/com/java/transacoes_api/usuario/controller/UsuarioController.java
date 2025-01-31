@@ -1,8 +1,8 @@
-package com.java.transacoes_api.controller;
+package com.java.transacoes_api.usuario.controller;
 
-import com.java.transacoes_api.controller.dtos.UsuarioInputDTO;
-import com.java.transacoes_api.entities.Usuario;
-import com.java.transacoes_api.services.UsuarioService;
+import com.java.transacoes_api.usuario.controller.dtos.UsuarioInputDTO;
+import com.java.transacoes_api.usuario.entities.Usuario;
+import com.java.transacoes_api.usuario.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
-package com.java.transacoes_api.entities;
+package com.java.transacoes_api.movimentacao.entities;
 
+import com.java.transacoes_api.conta.entities.Conta;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

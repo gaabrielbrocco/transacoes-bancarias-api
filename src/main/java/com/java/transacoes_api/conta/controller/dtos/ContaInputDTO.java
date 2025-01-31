@@ -1,4 +1,4 @@
-package com.java.transacoes_api.controller.dtos;
+package com.java.transacoes_api.conta.controller.dtos;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

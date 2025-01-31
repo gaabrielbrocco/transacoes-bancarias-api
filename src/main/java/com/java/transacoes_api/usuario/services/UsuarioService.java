@@ -1,8 +1,8 @@
-package com.java.transacoes_api.services;
+package com.java.transacoes_api.usuario.services;
 
-import com.java.transacoes_api.controller.dtos.UsuarioInputDTO;
-import com.java.transacoes_api.entities.Usuario;
-import com.java.transacoes_api.repository.UsuarioRepository;
+import com.java.transacoes_api.usuario.controller.dtos.UsuarioInputDTO;
+import com.java.transacoes_api.usuario.entities.Usuario;
+import com.java.transacoes_api.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

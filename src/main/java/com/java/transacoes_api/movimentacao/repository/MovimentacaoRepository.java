@@ -1,6 +1,6 @@
-package com.java.transacoes_api.repository;
+package com.java.transacoes_api.movimentacao.repository;
 
-import com.java.transacoes_api.entities.Movimentacao;
+import com.java.transacoes_api.movimentacao.entities.Movimentacao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

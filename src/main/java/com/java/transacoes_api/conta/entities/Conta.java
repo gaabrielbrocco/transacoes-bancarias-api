@@ -1,6 +1,6 @@
-package com.java.transacoes_api.entities;
+package com.java.transacoes_api.conta.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.java.transacoes_api.usuario.entities.Usuario;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

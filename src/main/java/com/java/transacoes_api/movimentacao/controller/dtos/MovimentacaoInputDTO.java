@@ -1,6 +1,6 @@
-package com.java.transacoes_api.controller.dtos;
+package com.java.transacoes_api.movimentacao.controller.dtos;
 
-import com.java.transacoes_api.entities.Movimentacao;
+import com.java.transacoes_api.movimentacao.entities.Movimentacao;
 
 import java.math.BigDecimal;
 
