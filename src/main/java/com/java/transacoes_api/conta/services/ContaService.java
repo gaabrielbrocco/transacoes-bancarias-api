@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class ContaService {
@@ -27,7 +26,7 @@ public class ContaService {
     @Autowired
     private MovimentacaoRepository movimentacaoRepository;
 
-    public Conta criarConta(ContaInputDTO dto)  throws Exception {
+    public Conta criarConta(ContaInputDTO dto) throws Exception {
         var usuarioExistente = usuarioRepository.findById(dto.usuarioId())
                 .orElseThrow(UsuarioNaoEncontradoException::new);
 
@@ -54,7 +53,7 @@ public class ContaService {
 
         boolean possuiMovimentacao = movimentacaoRepository.existsByContaId(id);
 
-        if(possuiMovimentacao) {
+        if (possuiMovimentacao) {
             throw new RuntimeException("Não é permitida a exclusão da conta com movimentações realizadas");
         }
 

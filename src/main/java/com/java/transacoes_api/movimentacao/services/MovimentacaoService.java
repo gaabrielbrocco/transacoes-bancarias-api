@@ -12,7 +12,6 @@ import com.java.transacoes_api.movimentacao.entities.Movimentacao;
 import com.java.transacoes_api.movimentacao.entities.TipoMovimentacao;
 import com.java.transacoes_api.conta.repository.ContaRepository;
 import com.java.transacoes_api.movimentacao.repository.MovimentacaoRepository;
-import com.java.transacoes_api.usuario.repository.UsuarioRepository;
 import com.resend.Resend;
 import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
@@ -38,13 +37,7 @@ public class MovimentacaoService {
     private MovimentacaoRepository movimentacaoRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
     private ContaRepository contaRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     private Blockchain blockchain = new Blockchain();
 
@@ -55,6 +48,10 @@ public class MovimentacaoService {
 
         var contaDestino = contaRepository.findByNumeroConta(dto.contaDestino())
                 .orElseThrow(ContaNaoEncontradaException::new);
+
+        if(dto.contaOrigem().equals(dto.contaDestino())) {
+            throw new Exception("Conta de origem é igual a conta de destino");
+        }
 
         if (dto.valor().compareTo(BigDecimal.ZERO) <= 0) {
             throw new Exception("O valor da transferência deve ser maior que zero");

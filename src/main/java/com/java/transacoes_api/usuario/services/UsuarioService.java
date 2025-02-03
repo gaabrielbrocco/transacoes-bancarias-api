@@ -1,7 +1,6 @@
 package com.java.transacoes_api.usuario.services;
 
 import com.java.transacoes_api.conta.exceptions.UsuarioNaoEncontradoException;
-import com.java.transacoes_api.movimentacao.exceptions.UsuarioPossuiContaException;
 import com.java.transacoes_api.conta.repository.ContaRepository;
 import com.java.transacoes_api.usuario.controller.dtos.UsuarioInputDTO;
 import com.java.transacoes_api.usuario.entities.Usuario;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class UsuarioService {
