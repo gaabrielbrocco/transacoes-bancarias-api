@@ -1,9 +1,6 @@
 package com.java.transacoes_api.global.advice;
 
-import com.java.transacoes_api.conta.exceptions.ContaNaoEncontradaException;
-import com.java.transacoes_api.conta.exceptions.UsuarioNaoEncontradoException;
 import com.java.transacoes_api.global.exception.DefaultException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;

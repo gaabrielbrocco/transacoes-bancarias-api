@@ -1,5 +1,11 @@
 package com.java.transacoes_api.movimentacao.services;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.java.transacoes_api.blockchain.Block;
+import com.java.transacoes_api.blockchain.Blockchain;
 import com.java.transacoes_api.conta.exceptions.ContaNaoEncontradaException;
 import com.java.transacoes_api.movimentacao.controller.dtos.MovimentacaoInputDTO;
 import com.java.transacoes_api.movimentacao.entities.Movimentacao;
@@ -21,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovimentacaoService {
@@ -33,6 +40,11 @@ public class MovimentacaoService {
 
     @Autowired
     private ContaRepository contaRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    private Blockchain blockchain = new Blockchain();
 
     @Transactional
     public Movimentacao transferencia(MovimentacaoInputDTO dto) throws Exception {
@@ -56,6 +68,10 @@ public class MovimentacaoService {
         contaRepository.save(contaOrigem);
         contaRepository.save(contaDestino);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         Movimentacao movimentacaoDebito = new Movimentacao();
         movimentacaoDebito.setValor(dto.valor().negate());
         movimentacaoDebito.setDescricao("Transferência enviada para " + dto.contaDestino());
@@ -72,6 +88,16 @@ public class MovimentacaoService {
 
         movimentacaoRepository.save(movimentacaoDebito);
         movimentacaoRepository.save(movimentacaoCredito);
+
+        Map<String, Object> mapDebito = objectMapper.convertValue(movimentacaoDebito, new TypeReference<Map<String, Object>>() {});
+        Map<String, Object> mapCredito = objectMapper.convertValue(movimentacaoCredito, new TypeReference<Map<String, Object>>() {});
+
+        blockchain.addBlock(mapDebito, "Débito");
+        blockchain.addBlock(mapCredito, "Crédito");
+
+        if (!blockchain.isValid()) {
+            throw new Exception("A blockchain foi corrompida");
+        }
 
         String nomeOrigem = contaOrigem.getUsuario().getNome();
         String emailOrigem = contaOrigem.getUsuario().getEmail();
@@ -125,6 +151,10 @@ public class MovimentacaoService {
             e.printStackTrace();
             throw new Exception("Erro ao enviar e-mail.");
         }
+    }
+
+    public List<Block> visualizarBlockchain() {
+        return blockchain.getChain();
     }
 
 

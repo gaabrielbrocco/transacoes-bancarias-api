@@ -1,5 +1,6 @@
 package com.java.transacoes_api.movimentacao.controller;
 
+import com.java.transacoes_api.blockchain.Block;
 import com.java.transacoes_api.movimentacao.controller.dtos.MovimentacaoInputDTO;
 import com.java.transacoes_api.movimentacao.entities.Movimentacao;
 import com.java.transacoes_api.conta.services.ContaService;
@@ -33,5 +34,10 @@ public class MovimentacaoController {
     public ResponseEntity<List<Movimentacao>> buscarTodasMovimentacoes() {
         var movimentacoes = movimentacaoService.buscarTodasMovimentacoes();
         return ResponseEntity.ok(movimentacoes);
+    }
+
+    @GetMapping("/blockchain")
+    public List<Block> visualizarBlockchain() {
+        return movimentacaoService.visualizarBlockchain();
     }
 }

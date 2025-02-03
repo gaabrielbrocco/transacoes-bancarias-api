@@ -1,5 +1,6 @@
 package com.java.transacoes_api.movimentacao.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.java.transacoes_api.conta.entities.Conta;
 import jakarta.persistence.*;
 
