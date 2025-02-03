@@ -158,4 +158,13 @@ public class MovimentacaoService {
     }
 
 
+    public List<Movimentacao> buscarMovimentacoesPorConta(String contaId) throws Exception {
+        var id = Long.parseLong(contaId);
+
+        var contaExistente = contaRepository.findById(id)
+                .orElseThrow(ContaNaoEncontradaException::new);
+
+        return movimentacaoRepository.findByContaId(id);
+    }
+
 }
