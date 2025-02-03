@@ -7,6 +7,8 @@ import com.java.transacoes_api.movimentacao.entities.Movimentacao;
 import com.java.transacoes_api.conta.services.ContaService;
 import com.java.transacoes_api.movimentacao.services.MovimentacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +33,9 @@ public class MovimentacaoController {
         return new ResponseEntity<>(movimentacao, HttpStatus.OK);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<Movimentacao>> buscarTodasMovimentacoes() {
-        var movimentacoes = movimentacaoService.buscarTodasMovimentacoes();
+    @GetMapping
+    public ResponseEntity<Page<Movimentacao>> buscarTodasMovimentacoes(Pageable pageable) {
+        Page<Movimentacao> movimentacoes = movimentacaoService.buscarTodasMovimentacoes(pageable);
         return ResponseEntity.ok(movimentacoes);
     }
 
@@ -43,10 +45,10 @@ public class MovimentacaoController {
     }
 
     @GetMapping("/conta/{contaId}")
-    public ResponseEntity<List<Movimentacao>> buscarMovimentacoesPorConta(@PathVariable String contaId) throws Exception {
+    public ResponseEntity<Page<Movimentacao>> buscarMovimentacoesPorConta(
+            @PathVariable String contaId, Pageable pageable) throws Exception {
 
-        List<Movimentacao> movimentacoes = movimentacaoService.buscarMovimentacoesPorConta(contaId);
+        Page<Movimentacao> movimentacoes = movimentacaoService.buscarMovimentacoesPorConta(contaId, pageable);
         return ResponseEntity.ok(movimentacoes);
-
     }
 }

@@ -18,6 +18,8 @@ import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.CreateEmailOptions;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -111,8 +113,8 @@ public class MovimentacaoService {
         return movimentacaoDebito;
     }
 
-    public List<Movimentacao> buscarTodasMovimentacoes() {
-        return movimentacaoRepository.findAll();
+    public Page<Movimentacao> buscarTodasMovimentacoes(Pageable pageable) {
+        return movimentacaoRepository.findAll(pageable);
     }
 
 
@@ -157,14 +159,13 @@ public class MovimentacaoService {
         return blockchain.getChain();
     }
 
-
-    public List<Movimentacao> buscarMovimentacoesPorConta(String contaId) throws Exception {
+    public Page<Movimentacao> buscarMovimentacoesPorConta(String contaId, Pageable pageable) throws Exception {
         var id = Long.parseLong(contaId);
 
-        var contaExistente = contaRepository.findById(id)
+        contaRepository.findById(id)
                 .orElseThrow(ContaNaoEncontradaException::new);
 
-        return movimentacaoRepository.findByContaId(id);
+        return movimentacaoRepository.findByContaId(id, pageable);
     }
 
 }

@@ -8,6 +8,8 @@ import com.java.transacoes_api.usuario.entities.Usuario;
 import com.java.transacoes_api.usuario.exceptions.EmailJaCadastradoException;
 import com.java.transacoes_api.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public void deletarUsuario(String usuarioId)  {
+    public void deletarUsuario(String usuarioId) {
         var id = Long.parseLong(usuarioId);
 
         var usuarioExistente = usuarioRepository.findById(id)
@@ -47,5 +49,7 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public List<Usuario> buscarUsuarios() {return usuarioRepository.findAll();}
+    public Page<Usuario> buscarUsuarios(Pageable pageable) {
+        return usuarioRepository.findAll(pageable);
+    }
 }

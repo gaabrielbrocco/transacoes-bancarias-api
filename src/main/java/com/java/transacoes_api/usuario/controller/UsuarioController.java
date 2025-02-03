@@ -6,6 +6,8 @@ import com.java.transacoes_api.usuario.entities.Usuario;
 import com.java.transacoes_api.usuario.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +35,8 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> buscarUsuarios() {
-        var usuarios = usuarioService.buscarUsuarios();
+    public ResponseEntity<Page<Usuario>> buscarUsuarios(Pageable pageable) {
+        Page<Usuario> usuarios = usuarioService.buscarUsuarios(pageable);
 
         return ResponseEntity.ok(usuarios);
     }

@@ -8,6 +8,8 @@ import com.java.transacoes_api.conta.repository.ContaRepository;
 import com.java.transacoes_api.movimentacao.repository.MovimentacaoRepository;
 import com.java.transacoes_api.usuario.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,8 +42,8 @@ public class ContaService {
         return contaRepository.save(conta);
     }
 
-    public List<Conta> buscarContas() {
-        return contaRepository.findAll();
+    public Page<Conta> buscarContas(Pageable pageable) {
+        return contaRepository.findAll(pageable);
     }
 
     public void deletarConta(String contaId) throws Exception {
