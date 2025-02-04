@@ -11,7 +11,7 @@
 
 ## Descrição
 
-O **Transações Bancárias** é uma aplicação desenvolvida em Java com o framework Spring Boot, com o objetivo de simular transações bancárias e simular o funcionamento de uma Blockchain. Com envio de e-mails e histórico de movimentações.
+O **Transações Bancárias** é uma aplicação desenvolvida em Java com o framework Spring Boot, com o objetivo de simular transações bancárias e implementar o funcionamento de uma Blockchain. Com envio de e-mails e histórico de movimentações.
 
 ## Funcionalidades
 
@@ -20,7 +20,7 @@ O **Transações Bancárias** é uma aplicação desenvolvida em Java com o fram
 - Realizar transferências de valores entre contas.
 - Histórico de movimentações.
 - Envio de e-mails para os usuários.
-- Simulação de uma Blockchain.
+- Transações em Blockchain.
 
 
 ## Configuração do Ambiente
