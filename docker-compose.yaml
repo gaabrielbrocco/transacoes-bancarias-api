@@ -15,13 +15,15 @@ services:
     volumes:
       - .:/app
       - /root/.m2:/root/.m2
-    command: ["spring-boot:run", "-Dspring-boot.run.jvmArguments=-javaagent:/app/opentelemetry-javaagent.jar"]
+    command: ["spring-boot:run", "-Dspring-boot.run.jvmArguments=-javaagent:/root/.m2/repository/io/opentelemetry/javaagent/opentelemetry-javaagent/1.32.0/opentelemetry-javaagent-1.32.0.jar"]
     ports:
       - "8080:8080"
       - "5005:5005"
     depends_on:
       - db
       - otel-collector
+    networks:
+      - otel_network
 
   db:
     container_name: postgres
@@ -35,18 +37,22 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - otel_network
 
   otel-collector:
     container_name: otel-collector
-    image: otel/opentelemetry-collector-contrib:latest
+    image: otel/opentelemetry-collector:latest
     volumes:
       - ./otel-config.yaml:/etc/otel/config.yaml
-    command: [ "--config", "/etc/otel/config.yaml" ]
+    command: ["--config=/etc/otel/config.yaml"]
     ports:
-      - "4321:4317"  # OTLP gRPC endpoint
-      - "4322:4318"  # OTLP HTTP endpoint
+      - "8088:4317"
+      - "8089:4318"
     depends_on:
       - tempo
+    networks:
+      - otel_network
 
   tempo:
     image: grafana/tempo:latest
@@ -59,6 +65,8 @@ services:
       - "3200:3200" # Endpoint HTTP para o Tempo
       - "4317:4317" # OTLP gRPC
       - "4318:4318" # OTLP HTTP
+    networks:
+      - otel_network
 
 
   grafana:
@@ -70,7 +78,15 @@ services:
       - grafana_data:/var/lib/grafana
     depends_on:
       - tempo
+    networks:
+      - otel_network
+
+networks:
+  otel_network:
+  #    driver: bridge
 
 volumes:
   postgres_data:
   grafana_data:
+
+

@@ -20,5 +20,6 @@ compactor:
   compaction:
     block_retention: 24h
 
+
 overrides:
   per_tenant_override_config: /etc/tempo-overrides.yaml

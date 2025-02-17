@@ -5,10 +5,9 @@ receivers:
       http:
 
 exporters:
-  logging:
-    loglevel: debug
+  debug:
   otlp:
-    endpoint: tempo:4317
+    endpoint: "http://otel-collector:4317"
     tls:
       insecure: true
 
@@ -16,4 +15,4 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [otlp, logging]
+      exporters: [otlp, debug]
