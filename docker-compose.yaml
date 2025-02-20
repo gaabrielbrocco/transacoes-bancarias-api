@@ -9,7 +9,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       MAVEN_OPTS: -Dspring-boot.run.profiles=dev
       OTEL_SERVICE_NAME: "meu-app"
-      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4417"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_TRACES_EXPORTER: "otlp"
     volumes:
@@ -40,15 +40,13 @@ services:
     networks:
       - otel_network
 
-  otel-collector:
-    container_name: otel-collector
-    image: otel/opentelemetry-collector:latest
-    volumes:
-      - ./otel-config.yaml:/etc/otel/config.yaml
-    command: ["--config=/etc/otel/config.yaml"]
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
     ports:
-      - "8088:4317"
-      - "8089:4318"
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
     depends_on:
       - tempo
     networks:
@@ -63,23 +61,29 @@ services:
         - ./tempo-overrides.yaml:/etc/tempo-overrides.yaml
     ports:
       - "3200:3200" # Endpoint HTTP para o Tempo
-      - "4317:4317" # OTLP gRPC
-      - "4318:4318" # OTLP HTTP
+      - "4417:4417" # OTLP gRPC
+      - "4418:4418" # OTLP HTTP
     networks:
       - otel_network
 
-
-  grafana:
-    container_name: grafana
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
+  otel-collector:
+    container_name: otel-collector
+    image: otel/opentelemetry-collector:latest
     volumes:
-      - grafana_data:/var/lib/grafana
+      - ./otel-config.yaml:/etc/otel/config.yaml
+    command: [ "--config=/etc/otel/config.yaml" ]
+    ports:
+      - "8088:4417"  # OTLP gRPC
+      - "8089:4418"  # OTLP HTTP
+      - "9464:9464"  # Porta do Prometheus Exporter
     depends_on:
       - tempo
     networks:
       - otel_network
+
+
+
+
 
 networks:
   otel_network:
