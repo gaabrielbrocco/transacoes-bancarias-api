@@ -26,9 +26,8 @@ public class UsuarioService {
     private ContaRepository contaRepository;
 
 
-    public Usuario criarUsuario(UsuarioInputDTO dto, Span span) {
+    public Usuario criarUsuario(UsuarioInputDTO dto) {
 
-        span.addEvent("criar-usuario-service");
         var emailExistente = usuarioRepository.findByEmail(dto.email());
         if (emailExistente.isPresent()) {
             throw new EmailJaCadastradoException("E-mail já cadastrado: " + dto.email());

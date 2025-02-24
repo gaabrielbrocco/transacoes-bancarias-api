@@ -22,7 +22,7 @@ public class MovimentacaoController {
 
     @Autowired
     private MovimentacaoService movimentacaoService;
-
+    
 
     @Operation(summary = "Realizar transferência", description = "Realizar uma transferência bancária para outra conta")
     @PostMapping("/transferencia")
