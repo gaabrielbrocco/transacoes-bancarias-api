@@ -3,11 +3,13 @@ package com.java.transacoes_api.usuario.controller;
 import com.java.transacoes_api.usuario.controller.dtos.UsuarioInputDTO;
 import com.java.transacoes_api.usuario.entities.Usuario;
 import com.java.transacoes_api.usuario.services.UsuarioService;
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanKind;
+import io.opentelemetry.api.trace.Tracer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +26,22 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
+    private final OpenTelemetry openTelemetry;
+
+    public UsuarioController(OpenTelemetry openTelemetry) {
+        this.openTelemetry = openTelemetry;
+    }
 
     @Operation(summary = "Criar usuário", description = "Criar um novo usuário no banco de dados")
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@RequestBody @Valid UsuarioInputDTO dto) {
+        Tracer tracer = openTelemetry.getTracer("criar-usuario-controller");
+        Span span = tracer
+                .spanBuilder("criar-usuario")
+                .setSpanKind(SpanKind.PRODUCER)
+                .startSpan();
 
-        var usuario = usuarioService.criarUsuario(dto);
+        var usuario = usuarioService.criarUsuario(dto, span);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 
     }
