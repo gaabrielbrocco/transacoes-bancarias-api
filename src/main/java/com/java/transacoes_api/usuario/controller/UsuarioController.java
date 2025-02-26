@@ -25,15 +25,17 @@ public class UsuarioController {
     @Operation(summary = "Criar usuário", description = "Criar um novo usuário no banco de dados")
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@RequestBody @Valid UsuarioInputDTO dto) {
+
         var usuario = usuarioService.criarUsuario(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+
     }
 
     @Operation(summary = "Buscar todos os usuários", description = "Buscar todos os usuários no banco de dados")
     @GetMapping
     public ResponseEntity<Page<Usuario>> buscarUsuarios(Pageable pageable) {
-        Page<Usuario> usuarios = usuarioService.buscarUsuarios(pageable);
 
+        Page<Usuario> usuarios = usuarioService.buscarUsuarios(pageable);
         return ResponseEntity.ok(usuarios);
     }
 

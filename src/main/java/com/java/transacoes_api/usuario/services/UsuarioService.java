@@ -6,6 +6,10 @@ import com.java.transacoes_api.usuario.controller.dtos.UsuarioInputDTO;
 import com.java.transacoes_api.usuario.entities.Usuario;
 import com.java.transacoes_api.usuario.exceptions.EmailJaCadastradoException;
 import com.java.transacoes_api.usuario.repository.UsuarioRepository;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +24,7 @@ public class UsuarioService {
 
     @Autowired
     private ContaRepository contaRepository;
+
 
     public Usuario criarUsuario(UsuarioInputDTO dto) {
 
